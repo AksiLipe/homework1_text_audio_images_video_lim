@@ -5,6 +5,7 @@ from pathlib import Path
 
 import torch
 from PIL import Image
+import numpy as np
 
 
 def normalize_label(s: str) -> str:
@@ -39,7 +40,9 @@ def download_file(url: str, out_path: Path):
     import urllib.request
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    urllib.request.urlretrieve(url, out_path)
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; ML-project/1.0)"})
+    with urllib.request.urlopen(req) as resp:
+        out_path.write_bytes(resp.read())
 
 
 def main():
@@ -52,7 +55,7 @@ def main():
     parser.add_argument("--conf-thres", type=float, default=0.25)
     parser.add_argument(
         "--sample-url",
-        default="https://upload.wikimedia.org/wikipedia/commons/2/26/YellowLabradorLooking_new.jpg",
+        default="https://raw.githubusercontent.com/ultralytics/yolov5/master/data/images/bus.jpg",
         help="Sample image if local dataset is empty.",
     )
     args = parser.parse_args()
