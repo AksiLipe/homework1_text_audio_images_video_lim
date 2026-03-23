@@ -19,6 +19,10 @@ tensorflow-hub
 
 setuptools==69.5.1
 
+ultralytics
+
+seaborn
+
 Pillow>=10.0.0
 opencv-python>=4.9.0.80
 soundfile>=0.12.1

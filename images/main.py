@@ -63,7 +63,8 @@ def main():
 
     # Load YOLOv5 from PyTorch Hub.
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    model = torch.hub.load("ultralytics/yolov5", args.model_name, pretrained=True)
+    # trust_repo=True чтобы не зависеть от интерактивного подтверждения при загрузке кода YOLOv5
+    model = torch.hub.load("ultralytics/yolov5", args.model_name, pretrained=True, trust_repo=True)
     if device == "cuda":
         model = model.to("cuda")
     model.eval()
